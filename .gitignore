@@ -5,3 +5,4 @@ dist/
 vendor/
 /vendor/
 *.zip
+.env
