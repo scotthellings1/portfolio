@@ -1,0 +1,28 @@
+//coding-examples page styles
+.coding-examples {
+  .coding-card {
+    background: c(grey-500);
+    color: c(grey-100);
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .highlight {
+    color: c(accent);
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.125rem;
+  }
+  table, th, td {
+    border: 1px solid c(white);
+    padding: 10px;
+  }
+  thead {
+    font-weight: bold;
+  }
+   table {
+    border-collapse: collapse;
+  }
+}

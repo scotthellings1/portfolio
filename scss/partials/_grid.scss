@@ -1,0 +1,77 @@
+/* grid system */
+@use "sass:math";
+// create a flex container
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// set columns to 100% and stacked
+[class^="col-"] {
+  flex-basis: 100%;
+}
+// create columns from 1 to the number of $grid-columns above md breakpoint
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    // set flex shrink and grow to 0 and dynamically set flex basis to
+    // 100% / (number of columns / iteration)
+    flex: 0 0 math.div(100%, math.div($grid-columns, $i));
+  }
+  //create column offsets
+  .col-offset-#{$i} {
+    margin-left: math.div(100%, math.div($grid-columns, $i));
+  }
+}
+@include mq(sm) {
+  @for $i from 1 through $grid-columns {
+    .sm-col-#{$i} {
+      // set flex shrink and grow to 0 and dynamically set flex basis to
+      // 100% / (number of columns / iteration)
+      flex: 0 0 math.div(100%, math.div($grid-columns, $i));
+    }
+    //create column offsets
+    .sm-col-offset-#{$i} {
+      margin-left: math.div(100%, math.div($grid-columns, $i));
+    }
+  }
+}
+@include mq(md) {
+  @for $i from 1 through $grid-columns {
+    .md-col-#{$i} {
+      // set flex shrink and grow to 0 and dynamically set flex basis to
+      // 100% / (number of columns / iteration)
+      flex: 0 0 math.div(100%, math.div($grid-columns, $i));
+    }
+    //create column offsets
+    .md-col-offset-#{$i} {
+      margin-left: math.div(100%, math.div($grid-columns, $i));
+    }
+  }
+}
+
+@include mq(lg) {
+  @for $i from 1 through $grid-columns {
+    .lg-col-#{$i} {
+      // set flex shrink and grow to 0 and dynamically set flex basis to
+      // 100% / (number of columns / iteration)
+      flex: 0 0 math.div(100%, math.div($grid-columns, $i));
+    }
+    //create column offsets
+    .lg-col-offset-#{$i} {
+      margin-left: math.div(100%, math.div($grid-columns, $i));
+    }
+  }
+}
+@include mq(xl) {
+  @for $i from 1 through $grid-columns {
+    .xl-col-#{$i} {
+      // set flex shrink and grow to 0 and dynamically set flex basis to
+      // 100% / (number of columns / iteration)
+      flex: 0 0 math.div(100%, math.div($grid-columns, $i));
+    }
+    //create column offsets
+    .xl-col-offset-#{$i} {
+      margin-left: math.div(100%, math.div($grid-columns, $i));
+    }
+  }
+}

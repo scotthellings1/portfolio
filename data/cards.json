@@ -1,0 +1,22 @@
+{
+  "cards" : [
+    {
+      "title": "Netmatters Homepage",
+      "description": "In this project I rebuilt the Netmatters homepage using HTML, CSS and SASS",
+      "link" : "https://scotthellings1.github.io/html-css-reflection/",
+      "image" : "/img/html-css-reflection.jpeg"
+    },
+    {
+      "title": "JavaScript Image Loader",
+      "description": "In this project I wrote an image loader JavaScript using the picsum API",
+      "link" : "http://image-loader.scott-hellings.netmatters-scs.co.uk/",
+      "image" : "/img/image-loader.png"
+    },
+    {
+      "title": "Something Awesome!",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias eaque incidunt.",
+      "link" : "#",
+      "image" : "/img/card-bg.jpg"
+    }
+  ]
+}

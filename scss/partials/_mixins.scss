@@ -1,0 +1,295 @@
+// mixins
+
+// generate media queries
+@mixin mq($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    // Write the media query.
+    @media screen and (min-width: $breakpoint-value) {
+      @content;
+    }
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+// detect if the device being used has hover capability
+@mixin mqh() {
+  @media (hover: hover)  {
+    @content;
+  }
+}
+
+//media query for that targets just IE
+@mixin mqie() {
+  @media (-ms-high-contrast: none), (-ms-high-contrast: active)  {
+    @content;
+  }
+}
+
+// generate font utility classes from font stack sizes
+@each $font-size, $value in $type-scale {
+  .text-#{$font-size} {
+    font-size: $value;
+  }
+}
+@each $bp-name, $bp-value in $breakpoints {
+  @each $font-size, $value in $type-scale {
+    @include mq($bp-name) {
+      .#{$bp-name}-text-#{$font-size} {
+        font-size: $value;
+      }
+    }
+  }
+}
+
+// margin padding utility classes
+
+//set side directions
+$directions: (
+  all: "",
+  left: "l",
+  right: "r",
+  top: "t",
+  bottom: "b",
+  top-bottom: "y",
+  left-right: "x",
+);
+$bps: ("", sm, md, lg, xl);
+// for each left value and right value in $spacing map eg (left)4: (right)1rem
+@each $bp in $bps {
+  @if $bp == "" {
+    @each $space, $size in $spacing {
+      //for each left value and right value in directions map eg (left) top: (right)r
+      @each $dir, $value in $directions {
+        //if the right side of the direction map = ''
+        // then create a class of .m- followed by the left side of the spacing map
+        // with the property margin and the value equal to the size of the right side of the spacing map
+        @if $value == "" {
+          // then create a class of .m- followed by the left side of the spacing map
+          // with the property margin and the value equal to the size of the right side of the spacing map
+          .m-#{$space} {
+            margin: #{$size};
+          }
+          // then create a class of .p- followed by the left side of the spacing map
+          // with the property padding and the value equal to the size of the right side of the spacing map
+          .p-#{$space} {
+            padding: #{$size};
+          }
+        }
+        //if the right side of the direction map = 'y'
+        @else if $value == "y" {
+          // then create a class of .my- followed by the left side of the spacing map
+          // with the properties margin-left and margin-right  and the values equal to the size of the right side of the spacing map
+          .my-#{$space} {
+            margin-top: #{$size};
+            margin-bottom: #{$size};
+          }
+          // then create a class of .py- followed by the left side of the spacing map
+          // with the properties padding-top and padding-bottom  and the values equal to the size of the right side of the spacing map
+          .py-#{$space} {
+            padding-top: #{$size};
+            padding-bottom: #{$size};
+          }
+        }
+        //if the right side of the direction map = 'x'
+        @else if $value == "x" {
+          // then create a class of .mx- followed by the left side of the spacing map
+          // with the properties margin-top and margin-bottom  and the values equal to the size of the right side of the spacing map
+          .mx-#{$space} {
+            margin-left: #{$size};
+            margin-right: #{$size};
+          }
+          // then create a class of .px- followed by the left side of the spacing map
+          // with the properties padding-top and padding-bottom  and the values equal to the size of the right side of the spacing map
+          .px-#{$space} {
+            padding-left: #{$size};
+            padding-right: #{$size};
+          }
+        } @else {
+          // then create a class of .m followed by the right side of the directions map followed by a '-' followed by left side of the spacing map
+          // with the properties margin- followed by the left side of the direction map and the values equal equal to the size of the right side of the spacing map
+          .m#{$value}\-#{$space} {
+            margin-#{$dir}: #{$size};
+          }
+          // then create a class of .p followed by the right side of the directions map followed by a '-' followed by left side of the spacing map
+          // with the properties padding- followed by the left side of the direction map and the values equal equal to the size of the right side of the spacing map
+          .p#{$value}\-#{$space} {
+            padding-#{$dir}: #{$size};
+          }
+        }
+      }
+    }
+    // create auto margin utility classes
+    //for each left value and right value in directions map eg (left) top: (right)r
+    @each $dir, $value in $directions {
+      // if the right side of the direction map = ''
+      // then create a class of .m-auto
+      // with the property margin and the value equal to auto
+      @if $value == "" {
+        .m-auto {
+          margin: auto;
+        }
+      }
+      // if the right side of the direction map = 'y'
+      // then create a class of .m followed by right side of direction map followed by -auto
+      // with the properties margin-top and margin-bottom, and the value equal to auto
+      @else if $value == "y" {
+        .m#{$value}\-auto {
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+      }
+      // if the right side of the direction map = 'x'
+      // then create a class of .m followed by right side of direction map followed by -auto
+      // with the properties margin-left and margin-right, and the value equal to auto
+      @else if $value == "x" {
+        .m#{$value}\-auto {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      } @else {
+        // create a class of .m followed by right side of direction map followed by -auto
+        // with the property margin followed by the left side of the direction map and the value equal auto
+        .m#{$value}\-auto {
+          margin-#{$dir}: auto;
+        }
+      }
+    }
+  } @else {
+    @each $space, $size in $spacing {
+      //for each left value and right value in directions map eg (left) top: (right)r
+      @each $dir, $value in $directions {
+        //if the right side of the direction map = ''
+        // then create a class of .m- followed by the left side of the spacing map
+        // with the property margin and the value equal to the size of the right side of the spacing map
+        @if $value == "" {
+          // then create a class of .m- followed by the left side of the spacing map
+          // with the property margin and the value equal to the size of the right side of the spacing map
+          .#{$bp}-m-#{$space} {
+            @include mq($bp) {
+              margin: #{$size};
+            }
+          }
+          // then create a class of .p- followed by the left side of the spacing map
+          // with the property padding and the value equal to the size of the right side of the spacing map
+          .#{$bp}-p-#{$space} {
+            @include mq($bp) {
+              padding: #{$size};
+            }
+          }
+        }
+        //if the right side of the direction map = 'y'
+        @else if $value == "y" {
+          // then create a class of .my- followed by the left side of the spacing map
+          // with the properties margin-left and margin-right  and the values equal to the size of the right side of the spacing map
+          .#{$bp}-my-#{$space} {
+            @include mq($bp) {
+              margin-top: #{$size};
+              margin-bottom: #{$size};
+            }
+          }
+          // then create a class of .py- followed by the left side of the spacing map
+          // with the properties padding-top and padding-bottom  and the values equal to the size of the right side of the spacing map
+          .#{$bp}-py-#{$space} {
+            @include mq($bp) {
+              padding-top: #{$size};
+              padding-bottom: #{$size};
+            }
+          }
+        }
+        //if the right side of the direction map = 'x'
+        @else if $value == "x" {
+          // then create a class of .mx- followed by the left side of the spacing map
+          // with the properties margin-top and margin-bottom  and the values equal to the size of the right side of the spacing map
+          .#{$bp}-mx-#{$space} {
+            @include mq($bp) {
+              margin-left: #{$size};
+              margin-right: #{$size};
+            }
+          }
+          // then create a class of .px- followed by the left side of the spacing map
+          // with the properties padding-top and padding-bottom  and the values equal to the size of the right side of the spacing map
+          .#{$bp}-px-#{$space} {
+            @include mq($bp) {
+              padding-left: #{$size};
+              padding-right: #{$size};
+            }
+          }
+        } @else {
+          // then create a class of .m followed by the right side of the directions map followed by a '-' followed by left side of the spacing map
+          // with the properties margin- followed by the left side of the direction map and the values equal equal to the size of the right side of the spacing map
+          .#{$bp}-m#{$value}\-#{$space} {
+            @include mq($bp) {
+              margin-#{$dir}: #{$size};
+            }
+          }
+
+          // then create a class of .p followed by the right side of the directions map followed by a '-' followed by left side of the spacing map
+          // with the properties padding- followed by the left side of the direction map and the values equal equal to the size of the right side of the spacing map
+          .#{$bp}-p#{$value}\-#{$space} {
+            @include mq($bp) {
+              padding-#{$dir}: #{$size};
+            }
+          }
+        }
+      }
+    }
+    // create auto margin utility classes
+    //for each left value and right value in directions map eg (left) top: (right)r
+    @each $dir, $value in $directions {
+      // if the right side of the direction map = ''
+      // then create a class of .m-auto
+      // with the property margin and the value equal to auto
+      @if $value == "" {
+        .#{$bp}-m-auto {
+          @include mq($bp) {
+            margin: auto;
+          }
+        }
+      }
+      // if the right side of the direction map = 'y'
+      // then create a class of .m followed by right side of direction map followed by -auto
+      // with the properties margin-top and margin-bottom, and the value equal to auto
+      @else if $value == "y" {
+        .#{$bp}-m#{$value}\-auto {
+          @include mq($bp) {
+            margin-top: auto;
+            margin-bottom: auto;
+          }
+        }
+      }
+      // if the right side of the direction map = 'x'
+      // then create a class of .m followed by right side of direction map followed by -auto
+      // with the properties margin-left and margin-right, and the value equal to auto
+      @else if $value == "x" {
+        .#{$bp}-m#{$value}\-auto {
+          @include mq($bp) {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      } @else {
+        // create a class of .m followed by right side of direction map followed by -auto
+        // with the property margin followed by the left side of the direction map and the value equal auto
+        .#{$bp}-m#{$value}\-auto {
+          @include mq($bp) {
+            margin-#{$dir}: auto;
+          }
+        }
+      }
+    }
+  }
+}
+@mixin pseudo($width, $height, $bg, $c) {
+  content: '';
+  position: absolute;
+  width: $width;
+  height: $height;
+  background: $bg;
+  color: $c;
+  @content
+}

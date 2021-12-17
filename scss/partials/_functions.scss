@@ -1,0 +1,18 @@
+// functions
+@use "sass:math";
+// convert pixel value to em value
+// usage -
+// h1 {font-size: em(18); /* 18px */ } // OUTPUT: h1 { font-size: 1.125em; }
+@function em($pixels, $context: $browser-context) {
+  @return #{math.div($pixels, $context)}em;
+}
+// convert pixel value to rem value
+// usage -
+// h1 {font-size: rem(18); /* 18px */ } // OUTPUT: h1 { font-size: 1.125rem; }
+@function rem($pixels, $context: $browser-context) {
+  @return #{math.div($pixels, $context)}rem;
+}
+// get colour value from $colours map
+@function c($name) {
+  @return map-get($colours, $name);
+}

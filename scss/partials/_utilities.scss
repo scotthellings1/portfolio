@@ -1,0 +1,72 @@
+// utility classes
+
+// set a max width container that is centered
+// and has 15px of padding on the left and right
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  @include mq(sm) {
+    // set a max width for sm bp
+    max-width: 34em;
+  }
+  @include mq(md) {
+    // set a max width for md bp
+    max-width: em(750);
+  }
+  @include mq(lg) {
+    // set a max width for lg bp
+    max-width: em(970);
+  }
+  @include mq(xl) {
+    // set a max width for xl bp
+    max-width: em(1200);
+  }
+}
+// utility to set top, left, bottom and right to 0
+.inset {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+//display an item flex
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+//display an item block
+.block {
+  display: block;
+}
+//display an item inline-block
+.inline-block {
+  display: inline-block;
+}
+// align text center
+.text-center {
+  text-align: center;
+}
+// align text left
+.text-left {
+  text-align: left;
+}
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.border-accent {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom: 0.15em solid c(accent);
+}
+.text-accent {
+  color: c(accent);
+}

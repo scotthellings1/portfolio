@@ -1,0 +1,83 @@
+//scs-scheme page styles
+.scs {
+  width: 90%;
+  @include mq(sm){
+    width: 100%;
+  }
+}
+.scs-card {
+  background: c(grey-500);
+  color: c(grey-100);
+  flex-grow: 1;
+  //&:nth-child(2) { //set styles of 2nd card
+  //  background: c(grey-700);
+  //
+  //}
+  //&:nth-child(3) { // set styles of 3rd card
+  //  background: c(grey-500);
+  //
+  //}
+  h2 {
+    margin: 1em 0;
+  }
+
+  li {
+    position: relative;
+    padding-left: em(18);
+    &::before { // add green square bullets
+      @include pseudo(8px, 8px, c(accent), c(white));
+      left: 0;
+      top: 8px;
+    }
+  };
+}
+.treehouse-icon {
+  color: #3AC162;
+  width: 60%;
+  max-height: em(90);
+}
+.treehouse-points,
+.treehouse-total-badges {
+  color: c(accent);
+}
+.badges {
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  li {
+    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    flex-basis: 100%;
+    @include mq(md) {
+      flex-basis: 50%;
+    }
+
+    @include mq(lg) {
+      flex-basis: 33%;
+      &:nth-child(4) {
+      margin-left: auto;
+      margin-right: auto;
+      }
+    }
+    @include mq(xl) {
+      flex-basis: 15%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    margin-bottom: 1.5rem;
+    &:last-child {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+
+  img {
+    width: auto;
+    height: 150px;
+  }
+  li::before {
+    display: none;
+  }
+}

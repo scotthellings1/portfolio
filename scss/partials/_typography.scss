@@ -1,0 +1,57 @@
+// set base typography styles
+
+// import font from google fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,800");
+@import url("https://fonts.googleapis.com/css2?family=Oregano:ital@1&display=swap");
+
+//set base fontsize
+html {
+  font-size: 100%; //16px
+}
+body {
+  font-size: 1em; //16px
+  font-family: $ff;
+  color: c(white);
+}
+
+// set font family and font weight for headings
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: $fw-semibold;
+}
+a.link {
+  color: c(accent);
+  display: inline-block;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    background: c(accent);
+    left: 0;
+    bottom: 1px;
+    width: 100%;
+    transform-origin: left;
+    transition: transform 250ms ease;
+    transform: scaleX(0);
+  }
+  &:hover::after {
+    transform: scaleX(1); // taarget for hover underline
+  }
+}
+
+//set font sizes for font headings - https://type-scale.com/?size=16&scale=1.333&text=A%20Visual%20Type%20Scale&font=Nunito%20Sans&fontweight=800&bodyfont=body_font_default&bodyfontweight=400&lineheight=1.75&backgroundcolor=%23ffffff&fontcolor=%23000000&preview=false
+//h1 { font-size: 4.209rem;}
+//
+//h2 {font-size: 3.157rem;}
+//
+//h3 {font-size: 2.369rem;}
+//
+//h4 {font-size: 1.777rem;}
+//
+//h5 {font-size: 1.333rem;}
+//
+//small {font-size: 0.75rem;}

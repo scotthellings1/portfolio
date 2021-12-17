@@ -1,0 +1,362 @@
+//index page styles
+
+//projects cards styling
+// @include mqh() - detects if device has hover capability
+// and applies the styles if it does
+
+.projects {
+  .heading {
+    color: c(white);
+  }
+  & .row {
+    justify-content: flex-start;
+    @include mq(md) {
+      justify-content: center;
+    }
+  }
+}
+
+.card {
+  color: c(white);
+  //background: url("../img/card-bg.jpg");
+  -webkit-background-size: cover;
+  background-size: cover;
+  padding: 10rem 0 0;
+  min-width: rem(266); // dont allow a card to be smaller than this
+  max-width: rem(330); // dont allow a card to be bigger than this
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 500ms ease;
+  box-shadow: 0 4px 6px -1px rgba(90, 90, 90, 0.1),
+    0 2px 4px -1px rgba(90, 90, 90, 0.06);
+  &:hover,
+  &:focus,
+  &:focus-within {
+    transform: scale(1.05); // slightly increase card size on hover
+  }
+  &:hover &-title::after,
+  &:focus &-title::after {
+    transform: scaleX(1); // show the underline of the title
+  }
+  &:hover &-content,
+  &:focus-within &-content {
+    @include mqh() {
+      transform: translateY(0);
+      transition-delay: 500ms;
+    }
+  }
+  &:focus-within &-content {
+    transition-delay: 0ms;
+  }
+  &:hover &-content > *:not(.card-title),
+  &:focus-within &-content > *:not(.card-title),
+  &:focus &-content > *:not(.card-title) {
+    // fade in card content except title
+    @include mqh() {
+      opacity: 1;
+      transition-delay: 800ms;
+    }
+  }
+  & .button {
+    background: c(accent);
+    color: c(grey-900);
+    font-weight: $fw-semibold;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    text-align: center;
+    //width: %;
+    &:hover,
+    &:focus {
+      background: c(white);
+    }
+  }
+
+  &-content {
+    // add gradient behind text and above image to make text readable
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, -1, 0, 0.7) 18%, black);
+    height: 100%;
+    @include mqh() {
+      transform: translateY(70%); // push content down to only show title
+      transition: transform 500ms ease;
+      &:hover &-content,
+      &:focus-within &-content {
+        transform: translateY(0); // reset position of text on card hover
+        transition-delay: 500ms;
+      }
+      & > *:not(.card-title) {
+        opacity: 0;
+        transition: opacity 500ms linear;
+      }
+    }
+  }
+  &-title {
+    position: relative;
+    display: inline-block;
+    font-weight: $fw-semibold;
+    &::after {
+      // set styling for the underline on the card title
+      content: "";
+      position: absolute;
+      height: 4px;
+      background: c(accent);
+      left: calc(1.5rem * -1);
+      bottom: -2px;
+      width: calc(100% + 1.5rem);
+      transform-origin: left;
+      transition: transform 500ms ease;
+      @include mqh() {
+        transform: scaleX(0);
+      }
+    }
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.125rem;
+    height: 77%;
+
+  }
+  &-1 {
+    //background: url("../img/html-css-reflection.jpeg") no-repeat;
+  }
+  &-2 {
+    background: url("../img/image-loader.png") no-repeat;
+    background-size: cover
+  ;
+  }
+}
+
+// Contact form styling
+
+.contact {
+  background: c(grey-700);
+  color: c(grey-100);
+  h2 {
+    color: c(white);
+  }
+  .contact-intro {
+    font-size: 1.25rem;
+  }
+
+  .custom-field {
+    position: relative;
+    font-size: 1rem;
+    border-top: 20px solid transparent;
+    padding: 12px;
+
+    input,
+    textarea {
+      border: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding: 12px;
+      font-size: 1rem;
+      width: calc(100% - 24px);
+      outline: none;
+      color: c(white);
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      background: lighten(c(grey-900), 15%);
+      background: linear-gradient(90deg, c(accent), c(accent)) left bottom/0
+          0.15em no-repeat,
+        linear-gradient(
+            90deg,
+            lighten(c(grey-900), 30%),
+            lighten(c(grey-900), 30%)
+          )
+          left bottom/100% 0.15em no-repeat,
+        linear-gradient(
+            90deg,
+            lighten(c(grey-900), 15%),
+            lighten(c(grey-900), 15%)
+          )
+          left bottom/100% no-repeat;
+      &.error {
+        background: lighten(c(grey-900), 15%);
+        background: linear-gradient(90deg, red, red) left bottom/0
+        0.15em no-repeat,
+        linear-gradient(
+                        90deg,
+                        red,
+                        red,
+        )
+        left bottom/100% 0.15em no-repeat,
+        linear-gradient(
+                        90deg,
+                        lighten(c(grey-900), 15%),
+                        lighten(c(grey-900), 15%)
+        )
+        left bottom/100% no-repeat;
+      }
+      transition: background-size 0.25s ease-in;
+
+      @include mqie() { // force green accents of the input fields in IE
+        background: linear-gradient(90deg, c(accent), c(accent)) left bottom/100%
+        0.15em no-repeat,
+        linear-gradient(
+                        90deg,
+                        lighten(c(grey-900), 30%),
+                        lighten(c(grey-900), 30%)
+        )
+        left bottom/100% 0.15em no-repeat,
+        linear-gradient(
+                        90deg,
+                        lighten(c(grey-900), 15%),
+                        lighten(c(grey-900), 15%)
+        )
+        left bottom/100% no-repeat;
+      }
+
+
+      //&:valid + .placeholder,
+      &:focus + .placeholder,
+      &:not(:placeholder-shown) + .placeholder {
+        top: -10px;
+        font-size: 0.875rem;
+      }
+
+      //&:valid,
+      &:not(:placeholder-shown),
+        //&:not(-ms-input-placeholder),
+      &:focus {
+        background-size: 100% 0.15em, 100% 0.1em, 100%;
+      }
+
+    }
+
+    .placeholder {
+      position: absolute;
+      left: 24px;
+      width: calc(100% - 24px);
+      top: 23px;
+      line-height: 100%;
+      transform: translateY(-50%);
+      overflow: hidden;
+      color: darken(c(white), 10%);
+      transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+      @include mqie(){
+        top: -10px;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+ }
+
+  .message-label {
+    @include mqie(){
+      top: -185px;
+    }
+    top: -208px;
+    font-size: 0.875rem;
+    margin-left: 24px;
+    position: absolute;
+    left: 0;
+  }
+
+  .button {
+    background: c(accent);
+    color: c(grey-700);
+    font-weight: $fw-semibold;
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background: c(white);
+    }
+  }
+
+.scroll-to-top {
+  text-align: center;
+  & a .scroll-up {
+    color: c(white);
+    display: inline-block;
+    padding-bottom: 4.5rem;
+    &::after {
+      animation: bounce 1s ease infinite;
+      bottom: 0.5rem;
+      color: #fff;
+      content: '╱╲';
+      font-size: 1.5rem;
+      height: 3rem;
+      left: 50%;
+      letter-spacing: -1px;
+      line-height: 4rem;
+      margin-left: -3rem;
+      opacity: 0.8;
+      position: absolute;
+      text-align: center;
+      width: 6rem;
+
+      @keyframes bounce {
+        50% {
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}
+
+.typewriter {
+  position: relative;
+  display: inline-block;
+  &::after{
+    position: absolute;
+    content: '';
+    right: -4px;
+    top: 3px;
+    bottom: 3px;
+    background: c(white);
+    width: 2px;
+    animation: cursor step-end 750ms infinite;
+    opacity: 1;
+  }
+}
+@keyframes cursor {
+  50% {
+    opacity: 0;
+  }
+}
+textarea::-webkit-input-placeholder {
+  color: #fff;
+  font-family: $ff;
+}
+
+textarea:-moz-placeholder { /* Firefox 18- */
+  color: #fff;
+  font-family: $ff;
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: #fff;
+  font-family: $ff;
+}
+
+textarea:-ms-input-placeholder {
+  color: #fff;
+  font-family: $ff;
+}
+.error-messages,   {
+  display: block;
+  ul li, .error {
+    
+    color: #ff7b59;
+  }
+}
+.error-input {
+  margin-left: 10px;
+  color: #ff7b59;
+  font-size: 1.1rem;
+}
+.success {
+  background: #42f584;
+  color: #000;
+  padding: 1rem 0.5rem;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.25rem;
+  border-radius: 3px;
+}

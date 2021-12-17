@@ -1,0 +1,151 @@
+nav.main {
+  display: none; // hide by default
+  @include mq(md) {
+    // at md bp display flex
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    min-height: 100%;
+    width: $nav-width;
+    @include mq(xl) {
+      // increase width at xl bp
+      width: ($nav-width * 1.25);
+    }
+    background: lighten(c(grey-900), 1%);
+    color: darken(c(white), 15%);
+    .logo {
+      justify-content: center;
+      align-items: center;
+      color: c(accent);
+      border-bottom: 2px solid c(accent);
+      font-weight: $fw-bold;
+      font-family: $ff-logo;
+    }
+    .menu-items > ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .menu-items a {
+      display: inline-block;
+      width: 100%;
+     &:hover .main-nav-item::after {
+        transform: scaleX(1); // taarget for hover underline
+      }
+    }
+    span {
+      display: inline-block;
+      position: relative;
+
+      &.main-nav-item::after {
+        // styling for hover underline
+        content: "";
+        position: absolute;
+        height: 3px;
+        @include mq(xl) {
+          height: 4px;
+        }
+        background: c(accent);
+        left: calc(1.5rem * -1);
+        bottom: 0px;
+        width: calc(100% + 1.5rem);
+        transform-origin: left;
+        transition: transform 500ms ease;
+        transform: scaleX(0);
+      }
+
+    }
+    .bordered {
+      // add top and bottom borders
+      border-top: 2px solid c(accent);
+      border-bottom: 2px solid c(accent);
+    }
+  }
+  .socials {
+    .icon {
+      height: 1.5em;
+      width: 1.5em;
+      @include mq(xl) {
+        // increase size at xl bp
+        height: 2em;
+        width: 2em;
+      }
+      color: c(grey-100);
+      transform: scale(1);
+      transition: transform 250ms cubic-bezier(0.21, -0.77, 0.85, 1.76);
+      &:hover {
+        // change color and slightly enlarge on hover
+        color: c(white);
+        transform: scale(1.1);
+      }
+    }
+    ul {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+  }
+}
+
+main {
+  width: 100vw;
+  @include mq(md) {
+    width: calc(
+      100vw - #{$nav-width}
+    ); // calculate the width view port - width of nav
+    margin-left: $nav-width; // offset the main content by width of nav
+  }
+  @include mq(xl) {
+    // adjust values for when nav size increases at xp bp
+    width: calc(100vw - (#{$nav-width} * 1.25));
+    margin-left: ($nav-width * 1.25);
+  }
+}
+.nav-container {
+  position: relative;
+  width: 100vw;
+
+}
+nav.mobile {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: c(grey-900);
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(0,-100%,0);
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  @include mq(md) {
+    display: none;
+  }
+  &.active {
+    transform: translate3d(0,0%,0);
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+  }
+  border-bottom: 2px solid c(accent);
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    a, li {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  .logo {
+    justify-content: center;
+    align-items: center;
+    color: c(accent);
+
+    font-weight: $fw-bold;
+    font-family: $ff-logo;
+  }
+}
